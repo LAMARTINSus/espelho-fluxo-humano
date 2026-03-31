@@ -174,13 +174,26 @@ if st.session_state.q == 1:
         st.rerun()
 
 elif st.session_state.q <= 81:
-    q = st.session_state.q-1
+    q = st.session_state.q - 1
     st.subheader(f"Pergunta {q}/80")
-    val = st.radio("Resposta", [1,2,3,4,5], horizontal=True)
+    st.markdown(f"**{questions[q]}**")
+
+    val = st.radio(
+        "Resposta",
+        [
+            "1 - Discordo totalmente",
+            "2 - Discordo",
+            "3 - Neutro",
+            "4 - Concordo",
+            "5 - Concordo totalmente"
+        ],
+        horizontal=True
+    )
 
     if st.button("Próxima"):
-        st.session_state.res[q]=val
-        st.session_state.q +=1
+        score = int(val.split(" - ")[0])
+        st.session_state.res[q] = score
+        st.session_state.q += 1
         st.rerun()
 
 else:
